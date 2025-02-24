@@ -1,0 +1,9 @@
+Date,Operational Hours,Maintenance Type,Sensor Type,Comments
+2024-09-30,15.0,Preventive,Vibration,Noisy sounds were recorded and then rectified.
+2024-09-18,9.0,Preventive,Temperature,Temperature was above threshold value
+2024-10-23,8.0,Major,Vibration,OKAY
+2024-10-28,5.0,Minor,Speed,The speed sensor was corrected.
+2025-01-08,8.0,Major,Vibration,Changes have been made.
+2025-02-20,0.0,Major,Speed,OKAY
+2025-02-20,6.0,Preventive,Current,OK
+2025-02-20,15.0,Predictive,Vibration,NOT OK
