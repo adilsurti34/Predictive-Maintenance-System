@@ -100,7 +100,6 @@ if selected == "Home":
 
     # Horizontal divider for neat sectioning
     st.divider()
-
     # Predictive Analysis section
     st.header("🔍 Predictive Analysis")
     st.markdown(
@@ -110,7 +109,6 @@ if selected == "Home":
         With data-driven insights, optimize maintenance processes and extend the lifespan of your equipment.
         """
     )
-
     # Example of a static placeholder image or a plot (could be a graph in a real use case)
     st.image("Predictive-Maintenance-768x375.jpg")
 
@@ -146,7 +144,7 @@ if selected == "Home":
 
 # Input Data Section
 elif selected == "Input Data":
-    machine_type = st.selectbox("Select Machine Type", ["Motor", "Pump", "Compressor", "Other"])
+    machine_type = st.selectbox("Select Machine Type", ["Motor", "Pump", "Compressor"])
     
     st.title(f"🔧 Input Features for {machine_type}")
     st.markdown("Use the sliders to input sensor readings or generate random values.")
@@ -154,7 +152,6 @@ elif selected == "Input Data":
     "Motor": ["Vibration", "Temperature", "Rotating Speed", "Current", "Operational Hours"],
     "Pump": ["Pressure", "Flow Rate", "Motor Speed", "Power Consumption", "Running Hours"],
     "Compressor": ["Airflow", "Heat Level", "Rotor Speed", "Energy Usage", "Usage Hours"],
-    "Other": ["Sensor 1", "Sensor 2", "Sensor 3", "Sensor 4", "Sensor 5"]
 }
 
     sensor_labels = machine_sensors[machine_type]  # Get labels for the selected machine
@@ -195,7 +192,6 @@ elif selected == "Input Data":
 # Results Section
 elif selected == "Results":
     st.title("📊 Prediction Results")
-
     if 'input_features' not in st.session_state:
         st.warning("Please input data first in the 'Input Data' section.")
     else:
@@ -219,6 +215,7 @@ elif selected == "Results":
                 body = f"""
                 Anomaly detected in the predictive maintenance system. 
                 Details:
+                - Machine Type: {machine_type}
                 - Remaining Useful Life (RUL): {prediction['RUL Prediction']:.2f} hours
                 - Maintenance Status: {prediction['Maintenance Prediction']}
                 - Anomaly Detection: {prediction['Anomaly Detection']}
@@ -241,8 +238,9 @@ elif selected == "Maintenance Log":
     # Input fields
     maintenance_date = st.date_input('Maintenance Date')
     maintenance_hours = st.number_input('Operational Hours at Maintenance')
-    maintenance_type = st.selectbox('Maintenance Type', [' ', 'Minor', 'Major', 'Preventive', 'Reactive', 'Predictive'], index=0)
-    sensor_type = st.selectbox('Sensor Type', [' ', 'Temperature', 'Vibration', 'Speed', 'Current'], index=0)
+    maintenance_machine = st.selectbox('Maintenance Machine',[' ','Motor','Pump','Compressor'], index=0)
+    maintenance_type = st.selectbox('Maintenance Type', [' ', 'Preventive', 'Reactive', 'Predictive'], index=0)
+    sensor_type = st.selectbox('Sensor Type', [' ', 'Temperature', 'Vibration', 'Speed', 'Current','Pressure', ], index=0)
     comments = st.text_area('Comments')
 
     # Check if user has selected a valid maintenance type and sensor type
@@ -254,6 +252,7 @@ elif selected == "Maintenance Log":
             new_log = pd.DataFrame({
                 'Date': [maintenance_date],
                 'Operational Hours': [maintenance_hours],
+                'Maintenance Machine': [maintenance_machine],
                 'Maintenance Type': [maintenance_type],
                 'Sensor Type': [sensor_type],
                 'Comments': [comments]
@@ -279,17 +278,16 @@ elif selected == "Maintenance History":
     new_log = pd.DataFrame({
                 'Date': [],
                 'Operational Hours': [],
+                'Maintenance Machine': [],
                 'Maintenance Type': [],
                 'Sensor Type': [],
                 'Comments': []
             })
-    
-        # Try to read the CSV file
+    # Try to read the CSV file
     maintenance_log = pd.read_csv('maintenance_log.csv')
     st.write(maintenance_log)
 
 # Maintenance Schedule
-
 elif selected == "Maintenance Schedule":
     st.title("🛠️ Maintenance Scheduling")
     
@@ -335,7 +333,8 @@ elif selected == "Maintenance Schedule":
         except Exception as e:
             # Handle any other unexpected errors
             st.error(f"An unexpected error occurred: {e}")
-    
+
+# Email Notification
 elif selected == "Email Notifications":
     st.title("📧 Email Notifications")
     
@@ -351,9 +350,9 @@ elif selected == "Email Notifications":
     else:
         st.warning("No email address set yet.")
 
+#Visualization
 elif selected == "Visualizations":
         st.title("📊 Data Visualizations")
-
         # Histogram for sensor readings
         st.subheader("Histogram of Sensor Readings")
         fig, axs = plt.subplots(1, 4, figsize=(15, 5))
