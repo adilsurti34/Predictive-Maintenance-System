@@ -81,8 +81,8 @@ def send_email_notification(receiver_email, subject, body):
 with st.sidebar:
     selected = option_menu(
         menu_title="Main Menu",
-        options=["Home", "Email Notifications", "Input Data", "Results", "Historical Data", "Visualizations", "Maintenance Log", "Maintenance History", "Maintenance Schedule"],
-        icons=["house","envelope", "input-cursor", "check2-circle",  "table", "bar-chart-line", "book", "robot", "clock"],
+        options=["Home", "Email Notifications", "Input Data", "Results", "Visualizations", "Maintenance Log", "Maintenance History",  "Maintenance Schedule", "Historical Data"]
+        icons=["house","envelope", "input-cursor", "check2-circle", "bar-chart-line", "book", "robot", "clock", "table"]
         menu_icon="cast",
         default_index=0,
     )
